@@ -5,7 +5,7 @@ import { ServiceItem } from '@dashboard/shared';
 
 const execAsync = promisify(exec);
 
-export async function executeQuickAction(action: string): Promise<{ success: boolean; output: string }> {
+export async function executeQuickAction(action: string, customCommand?: string): Promise<{ success: boolean; output: string }> {
   const isLinux = os.platform() === 'linux';
 
   try {
@@ -15,13 +15,22 @@ export async function executeQuickAction(action: string): Promise<{ success: boo
         command = isLinux ? 'sync && echo 3 > /proc/sys/vm/drop_caches' : 'echo "Cache clear not supported on this OS"';
         break;
       case 'restart_caddy':
-        command = isLinux ? 'systemctl restart caddy' : 'echo "Caddy service not on Linux"';
+        command = isLinux ? 'systemctl reload caddy || systemctl restart caddy' : 'echo "Caddy service not on Linux"';
         break;
       case 'restart_nginx':
         command = isLinux ? 'systemctl restart nginx' : 'echo "Nginx service not on Linux"';
         break;
+      case 'restart_pm2':
+        command = isLinux ? 'pm2 reload all || pm2 restart all' : 'echo "PM2 not supported on this OS"';
+        break;
       case 'reboot':
         command = isLinux ? 'shutdown -r +1 "Reboot triggered by admin via Dashboard"' : 'shutdown /r /t 60';
+        break;
+      case 'custom':
+        if (!customCommand || !customCommand.trim()) {
+          return { success: false, output: 'No command provided to execute' };
+        }
+        command = customCommand.trim();
         break;
       default:
         return { success: false, output: `Unknown action: ${action}` };

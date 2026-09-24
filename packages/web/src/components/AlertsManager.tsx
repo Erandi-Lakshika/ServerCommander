@@ -148,6 +148,38 @@ export const AlertsManager: React.FC<AlertsManagerProps> = ({ token }) => {
           </button>
         </div>
 
+        {/* Top Summary Status Grid matching Mobile AlertsFragment */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <span className="text-[10px] font-mono text-slate-500 uppercase block">Daemon Status</span>
+            <span className="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse" />
+              {config?.enabled !== false ? 'ACTIVE' : 'PAUSED'}
+            </span>
+          </div>
+
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <span className="text-[10px] font-mono text-slate-500 uppercase block">CPU Threshold</span>
+            <span className="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1 block">
+              &gt; {cpuThreshold}%
+            </span>
+          </div>
+
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <span className="text-[10px] font-mono text-slate-500 uppercase block">RAM Threshold</span>
+            <span className="text-xs font-bold font-mono text-purple-600 dark:text-purple-400 mt-1 block">
+              &gt; {memThreshold}%
+            </span>
+          </div>
+
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <span className="text-[10px] font-mono text-slate-500 uppercase block">Disk Threshold</span>
+            <span className="text-xs font-bold font-mono text-blue-600 dark:text-blue-400 mt-1 block">
+              &gt; {diskThreshold}%
+            </span>
+          </div>
+        </div>
+
         {notification && (
           <div
             className={`mb-6 px-4 py-2.5 rounded-xl text-xs font-mono flex items-center space-x-2 border ${

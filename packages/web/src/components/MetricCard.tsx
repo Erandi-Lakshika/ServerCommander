@@ -5,6 +5,7 @@ interface MetricCardProps {
   title: string;
   value: string | number;
   subValue?: string;
+  extraValue?: string;
   percent?: number;
   icon: LucideIcon;
   color?: 'emerald' | 'amber' | 'red' | 'blue' | 'purple';
@@ -14,6 +15,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   title,
   value,
   subValue,
+  extraValue,
   percent,
   icon: Icon,
   color = 'emerald',
@@ -78,6 +80,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             style={{ width: `${Math.min(100, Math.max(0, percent))}%` }}
           />
         </div>
+      )}
+
+      {extraValue && (
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-mono truncate border-t border-slate-200/60 dark:border-slate-800/60 pt-2">
+          {extraValue}
+        </p>
       )}
     </div>
   );

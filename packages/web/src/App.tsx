@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Cpu, HardDrive, MemoryStick, Activity, Layers, Terminal as TermIcon, Bell, Compass } from 'lucide-react';
+import { Cpu, HardDrive, MemoryStick, Activity, Layers, Terminal as TermIcon, Bell, Compass, Zap } from 'lucide-react';
 import { useAuth } from './hooks/useAuth';
 import { useTelemetry } from './hooks/useTelemetry';
 import { Navbar } from './components/Navbar';
@@ -8,6 +8,7 @@ import { LiveCharts } from './components/LiveCharts';
 import { ProcessTable } from './components/ProcessTable';
 import { WebTerminal } from './components/WebTerminal';
 import { QuickActions } from './components/QuickActions';
+import { SystemActions } from './components/SystemActions';
 import { AlertsManager } from './components/AlertsManager';
 import { LoginModal } from './components/LoginModal';
 
@@ -68,12 +69,13 @@ export const App: React.FC = () => {
         {/* TAB 1: OVERVIEW & TELEMETRY */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
-            {/* 4 Stat Cards */}
+            {/* 4 Stat Cards matching Mobile Telemetry */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <MetricCard
                 title="CPU Utilization"
                 value={`${metrics?.cpu.usagePercent || 0}%`}
-                subValue={metrics?.cpu.brand || '1 vCPU Core'}
+                subValue={metrics?.cpu.brand || `${metrics?.cpu.cores?.length || 1} vCPU Core`}
+                extraValue={`Load: ${metrics?.cpu.loadAvg?.map((n) => n.toFixed(2)).join(', ') || '0.00'}`}
                 percent={metrics?.cpu.usagePercent || 0}
                 icon={Cpu}
                 color={
@@ -86,9 +88,10 @@ export const App: React.FC = () => {
               />
 
               <MetricCard
-                title="RAM Usage"
+                title="Memory / RAM"
                 value={`${metrics?.memory.percentUsed || 0}%`}
                 subValue={`${formatBytes(metrics?.memory.used || 0)} / ${formatBytes(metrics?.memory.total || 0)}`}
+                extraValue={`Swap: ${metrics?.memory.swapPercentUsed || 0}% (${formatBytes(metrics?.memory.swapUsed || 0)} / ${formatBytes(metrics?.memory.swapTotal || 0)})`}
                 percent={metrics?.memory.percentUsed || 0}
                 icon={MemoryStick}
                 color={
@@ -101,18 +104,20 @@ export const App: React.FC = () => {
               />
 
               <MetricCard
-                title="Disk Capacity"
+                title={`Storage (${primaryDisk?.mount || '/'})`}
                 value={`${primaryDisk?.usePercent || 0}%`}
                 subValue={`${formatBytes(primaryDisk?.used || 0)} / ${formatBytes(primaryDisk?.size || 0)}`}
+                extraValue={`${formatBytes(primaryDisk?.available || 0)} free • ${primaryDisk?.fs || 'ext4'}`}
                 percent={primaryDisk?.usePercent || 0}
                 icon={HardDrive}
                 color={(primaryDisk?.usePercent || 0) > 80 ? 'red' : 'blue'}
               />
 
               <MetricCard
-                title="Network Bandwidth"
-                value={`${formatBytes(metrics?.network.rxSec || 0)}/s`}
-                subValue={`Tx: ${formatBytes(metrics?.network.txSec || 0)}/s • ${metrics?.network.interface || 'eth0'}`}
+                title={`Network (${metrics?.network.interface || 'eth0'})`}
+                value={`↓ ${formatBytes(metrics?.network.rxSec || 0)}/s`}
+                subValue={`↑ ${formatBytes(metrics?.network.txSec || 0)}/s`}
+                extraValue={`Total: ↓ ${formatBytes(metrics?.network.rxTotal || 0)} • ↑ ${formatBytes(metrics?.network.txTotal || 0)}`}
                 icon={Activity}
                 color="emerald"
               />
@@ -121,8 +126,8 @@ export const App: React.FC = () => {
             {/* Live Visual Charts */}
             <LiveCharts history={history} theme={theme} />
 
-            {/* Quick Actions Bar */}
-            <QuickActions token={token} />
+            {/* Quick Actions Bar with Link to Full Operations */}
+            <QuickActions token={token} onNavigateActions={() => setActiveTab('actions')} />
           </div>
         )}
 
@@ -132,16 +137,20 @@ export const App: React.FC = () => {
         {/* TAB 3: WEB TERMINAL */}
         {activeTab === 'terminal' && <WebTerminal token={token} theme={theme} />}
 
-        {/* TAB 4: ALERTS & RESEND */}
+        {/* TAB 4: SYSTEM ACTIONS & OPERATIONS */}
+        {activeTab === 'actions' && <SystemActions token={token} />}
+
+        {/* TAB 5: ALERTS & RESEND */}
         {activeTab === 'alerts' && <AlertsManager token={token} />}
       </main>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 py-2 flex justify-around">
+      {/* Mobile Bottom Navigation Bar (5 tabs matching Android app) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-2 py-2 flex justify-around">
         {[
           { id: 'overview', label: 'Stats', icon: Compass },
           { id: 'processes', label: 'Tasks', icon: Layers },
           { id: 'terminal', label: 'Shell', icon: TermIcon },
+          { id: 'actions', label: 'Actions', icon: Zap },
           { id: 'alerts', label: 'Alerts', icon: Bell },
         ].map((item) => {
           const Icon = item.icon;
@@ -150,7 +159,7 @@ export const App: React.FC = () => {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`flex flex-col items-center py-1 px-3 rounded-lg transition-colors ${
+              className={`flex flex-col items-center py-1 px-2.5 rounded-lg transition-colors ${
                 isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-500 dark:text-slate-400'
               }`}
             >

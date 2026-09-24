@@ -43,7 +43,7 @@ public class ActionsFragment extends Fragment {
 
         btnDropCache.setOnClickListener(v -> runAction("clear_cache", "Dropping memory pagecache..."));
         btnReloadCaddy.setOnClickListener(v -> runAction("restart_caddy", "Reloading Caddy reverse proxy..."));
-        btnRestartPm2.setOnClickListener(v -> runAction("clear_cache", "Restarting PM2 backend services..."));
+        btnRestartPm2.setOnClickListener(v -> runAction("restart_pm2", "Restarting PM2 backend services..."));
 
         btnRebootServer.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())

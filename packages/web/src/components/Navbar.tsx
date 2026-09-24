@@ -56,6 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               { id: 'overview', label: 'Telemetry' },
               { id: 'processes', label: 'Processes' },
               { id: 'terminal', label: 'Web Terminal' },
+              { id: 'actions', label: 'Actions' },
               { id: 'alerts', label: 'Alerts & Resend' },
             ].map((tab) => (
               <button

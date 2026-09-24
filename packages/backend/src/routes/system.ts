@@ -56,11 +56,11 @@ systemRouter.get('/services', async (_req: Request, res: Response) => {
 
 // POST /api/system/actions
 systemRouter.post('/actions', async (req: Request, res: Response) => {
-  const { action } = req.body;
+  const { action, customCommand } = req.body;
   if (!action) {
     return res.status(400).json({ error: 'Action name is required' });
   }
 
-  const result = await executeQuickAction(action);
+  const result = await executeQuickAction(action, customCommand);
   return res.json(result);
 });

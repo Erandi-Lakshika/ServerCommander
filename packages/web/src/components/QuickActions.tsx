@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Zap, RefreshCcw, Trash2, Power, CheckCircle, AlertCircle } from 'lucide-react';
+import { Zap, RefreshCcw, Trash2, Power, Layers, CheckCircle, AlertCircle, ChevronRight } from 'lucide-react';
 
 interface QuickActionsProps {
   token: string | null;
+  onNavigateActions?: () => void;
 }
 
-export const QuickActions: React.FC<QuickActionsProps> = ({ token }) => {
+export const QuickActions: React.FC<QuickActionsProps> = ({ token, onNavigateActions }) => {
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ message: string; isError: boolean } | null>(null);
 
@@ -48,14 +49,21 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ token }) => {
     {
       id: 'restart_caddy',
       title: 'Reload Caddy',
-      desc: 'Restarts SSL & reverse proxy service',
+      desc: 'Hot-reloads proxy & SSL config',
       icon: RefreshCcw,
       color: 'text-sky-600 dark:text-sky-400 bg-sky-500/10 border-sky-500/30',
     },
     {
+      id: 'restart_pm2',
+      title: 'Restart PM2',
+      desc: 'Reloads backend node cluster',
+      icon: Layers,
+      color: 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/30',
+    },
+    {
       id: 'reboot',
-      title: 'Schedule Reboot',
-      desc: 'Gracefully reboots VPS in 1 minute',
+      title: 'Reboot Server',
+      desc: 'Graceful Linux kernel restart',
       icon: Power,
       color: 'text-red-600 dark:text-red-400 bg-red-500/10 border-red-500/30',
     },
@@ -63,14 +71,26 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ token }) => {
 
   return (
     <div className="glass-card rounded-2xl p-6 mt-6">
-      <div className="flex items-center space-x-3 mb-4">
-        <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-          <Zap className="h-5 w-5" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-3">
+          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+            <Zap className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-wide">Quick Emergency Controls</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">One-click administrative actions</p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-wide">Quick Emergency Controls</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">One-click administrative actions</p>
-        </div>
+
+        {onNavigateActions && (
+          <button
+            onClick={onNavigateActions}
+            className="flex items-center space-x-1 text-xs font-mono text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-semibold"
+          >
+            <span>Full Actions Console</span>
+            <ChevronRight className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
 
       {feedback && (
@@ -82,11 +102,11 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ token }) => {
           }`}
         >
           {feedback.isError ? <AlertCircle className="h-4 w-4" /> : <CheckCircle className="h-4 w-4" />}
-          <span>{feedback.message}</span>
+          <span className="truncate">{feedback.message}</span>
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {actions.map((act) => {
           const Icon = act.icon;
           const isLoading = loadingAction === act.id;
@@ -100,9 +120,9 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ token }) => {
               <div className={`p-2.5 rounded-xl border ${act.color} group-hover:scale-105 transition-transform`}>
                 <Icon className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
               </div>
-              <div className="flex-1">
-                <p className="text-xs font-bold text-slate-900 dark:text-white">{act.title}</p>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">{act.desc}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{act.title}</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5 truncate">{act.desc}</p>
               </div>
             </button>
           );
