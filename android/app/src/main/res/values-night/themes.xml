@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark Mode Theme -->
+    <style name="Theme.ServerCommander" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Status bar and navigation bar -->
+        <item name="android:statusBarColor">@color/slate_black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/slate_black</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        
+        <!-- Primary & Accent -->
+        <item name="colorPrimary">@color/brand_emerald</item>
+        <item name="colorOnPrimary">@color/slate_950</item>
+        
+        <!-- Background & Surface -->
+        <item name="android:colorBackground">@color/slate_950</item>
+        <item name="colorSurface">@color/slate_900</item>
+        <item name="colorOnSurface">@color/slate_50</item>
+        <item name="colorSurfaceVariant">@color/slate_800</item>
+        <item name="colorOutline">@color/slate_700</item>
+    </style>
+</resources>

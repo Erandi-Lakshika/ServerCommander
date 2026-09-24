@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="24dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_server"
+                app:tint="@color/brand_emerald"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:text="@string/app_name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:textColor="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/tv_domain_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="24dp"
+                android:text="dashboard.ictevents.space"
+                android:textSize="12sp"
+                android:textColor="@color/brand_emerald" />
+
+            <!-- Server Host -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SERVER HOST"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.6" />
+
+            <EditText
+                android:id="@+id/et_server_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/input_bg"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurface"
+                android:inputType="textUri"
+                android:hint="@string/default_server_url"
+                android:text="@string/default_server_url" />
+
+            <!-- Username -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADMIN USERNAME"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.6" />
+
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/input_bg"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurface"
+                android:inputType="text"
+                android:hint="@string/default_username"
+                android:text="@string/default_username" />
+
+            <!-- Password -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PASSWORD"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.6" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/input_bg"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurface"
+                android:inputType="textPassword"
+                android:hint="Enter password" />
+
+            <!-- Connect Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="CONNECT &amp; UNLOCK →"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                android:backgroundTint="@color/brand_emerald"
+                android:textColor="@color/slate_950" />
+
+            <!-- Loading Indicator -->
+            <ProgressBar
+                android:id="@+id/pb_login_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
+
+            <!-- Theme Toggle Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_toggle_theme"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:text="Switch Theme (Light / Dark)"
+                android:textSize="12sp"
+                app:cornerRadius="12dp"
+                android:textColor="?attr/colorOnSurface"
+                app:strokeColor="?attr/colorOutline" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

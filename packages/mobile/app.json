@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Server Commander",
+    "slug": "server-commander",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "platforms": ["ios", "android"],
+    "splash": {
+      "backgroundColor": "#090d16"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "space.ictevents.dashboard"
+    },
+    "android": {
+      "package": "space.ictevents.dashboard"
+    }
+  }
+}

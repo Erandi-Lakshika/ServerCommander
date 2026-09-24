@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Server Commander</string>
+    <string name="default_server_url">https://dashboard.ictevents.space</string>
+    <string name="default_username">admin</string>
+    
+    <!-- Navigation Tabs -->
+    <string name="nav_stats">Stats</string>
+    <string name="nav_processes">Tasks</string>
+    <string name="nav_terminal">Shell</string>
+    <string name="nav_alerts">Alerts</string>
+    <string name="nav_actions">Actions</string>
+</resources>

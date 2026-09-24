@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/windowBackground">
+
+    <!-- Header bar with Search and Stats -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/input_bg"
+            android:paddingHorizontal="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search"
+                android:tint="@color/slate_400"
+                android:contentDescription="Search" />
+
+            <EditText
+                android:id="@+id/etSearchProcess"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:hint="Filter by process name, command, PID..."
+                android:textSize="14sp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textColorHint="@color/slate_500"
+                android:singleLine="true"
+                android:imeOptions="actionDone" />
+
+            <ImageView
+                android:id="@+id/btnClearSearch"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_kill"
+                android:tint="@color/slate_400"
+                android:visibility="gone"
+                android:contentDescription="Clear search" />
+        </LinearLayout>
+
+        <!-- Sorting Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvProcessCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0 processes running"
+                android:textSize="12sp"
+                android:textColor="@color/slate_400" />
+
+            <TextView
+                android:id="@+id/btnSortCpu"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="CPU % ▼"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/brand_emerald"
+                android:background="@drawable/chip_bg"
+                android:paddingHorizontal="10dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/btnSortMem"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="RAM %"
+                android:textSize="11sp"
+                android:textColor="@color/slate_400"
+                android:background="@drawable/chip_bg"
+                android:paddingHorizontal="10dp"
+                android:gravity="center"
+                android:layout_marginStart="6dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/btnSortPid"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="PID"
+                android:textSize="11sp"
+                android:textColor="@color/slate_400"
+                android:background="@drawable/chip_bg"
+                android:paddingHorizontal="10dp"
+                android:gravity="center"
+                android:layout_marginStart="6dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshProcesses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProcesses"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="80dp"
+                tools:listitem="@layout/item_process" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- Empty / Loading state -->
+        <ProgressBar
+            android:id="@+id/pbLoadingProcesses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvEmptyProcesses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="No active processes match filter"
+            android:textColor="@color/slate_400"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

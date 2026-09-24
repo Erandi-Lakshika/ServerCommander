@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Subtle drop shadow behind the server rack -->
+    <path
+        android:pathData="M31,34h46c2.5,0 4.5,2 4.5,4.5v39c0,2.5 -2,4.5 -4.5,4.5h-46c-2.5,0 -4.5,-2 -4.5,-4.5v-39c0,-2.5 2,-4.5 4.5,-4.5z"
+        android:fillColor="#40000000" />
+
+    <!-- === SERVER BLADE 1 (TOP) === -->
+    <!-- Blade 1 Body -->
+    <path
+        android:pathData="M34,31h40c2.2,0 4,1.8 4,4v6c0,2.2 -1.8,4 -4,4h-40c-2.2,0 -4,-1.8 -4,-4v-6c0,-2.2 1.8,-4 4,-4z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#22C55E">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="31"
+                android:endX="54"
+                android:endY="45"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#1A2E26" />
+                <item android:offset="1.0" android:color="#0B1A14" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Blade 1 LED 1 (Green Active) -->
+    <path
+        android:pathData="M36,38m-1.8,0a1.8,1.8 0 1,0 3.6,0a1.8,1.8 0 1,0 -3.6,0"
+        android:fillColor="#22C55E" />
+    <!-- Blade 1 LED 2 (Cyan Network) -->
+    <path
+        android:pathData="M41,38m-1.5,0a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0"
+        android:fillColor="#38BDF8" />
+    <!-- Blade 1 Drive Bay Grille -->
+    <path
+        android:pathData="M48,38h24"
+        android:strokeWidth="1.5"
+        android:strokeColor="#86EFAC"
+        android:strokeLineCap="round" />
+
+    <!-- === SERVER BLADE 2 (MIDDLE) === -->
+    <!-- Blade 2 Body -->
+    <path
+        android:pathData="M34,47h40c2.2,0 4,1.8 4,4v6c0,2.2 -1.8,4 -4,4h-40c-2.2,0 -4,-1.8 -4,-4v-6c0,-2.2 1.8,-4 4,-4z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#22C55E">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="47"
+                android:endX="54"
+                android:endY="61"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#1A2E26" />
+                <item android:offset="1.0" android:color="#0B1A14" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Blade 2 LED 1 (Green Active) -->
+    <path
+        android:pathData="M36,54m-1.8,0a1.8,1.8 0 1,0 3.6,0a1.8,1.8 0 1,0 -3.6,0"
+        android:fillColor="#22C55E" />
+    <!-- Blade 2 LED 2 (Amber Load) -->
+    <path
+        android:pathData="M41,54m-1.5,0a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0"
+        android:fillColor="#F59E0B" />
+    <!-- Blade 2 Drive Bay Grille -->
+    <path
+        android:pathData="M48,54h24"
+        android:strokeWidth="1.5"
+        android:strokeColor="#86EFAC"
+        android:strokeLineCap="round" />
+
+    <!-- === SERVER BLADE 3 (BOTTOM) === -->
+    <!-- Blade 3 Body -->
+    <path
+        android:pathData="M34,63h40c2.2,0 4,1.8 4,4v6c0,2.2 -1.8,4 -4,4h-40c-2.2,0 -4,-1.8 -4,-4v-6c0,-2.2 1.8,-4 4,-4z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#22C55E">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="63"
+                android:endX="54"
+                android:endY="77"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#1A2E26" />
+                <item android:offset="1.0" android:color="#0B1A14" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Blade 3 LED 1 (Green Active) -->
+    <path
+        android:pathData="M36,70m-1.8,0a1.8,1.8 0 1,0 3.6,0a1.8,1.8 0 1,0 -3.6,0"
+        android:fillColor="#22C55E" />
+    <!-- Blade 3 LED 2 (Purple Storage) -->
+    <path
+        android:pathData="M41,70m-1.5,0a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0"
+        android:fillColor="#A855F7" />
+    <!-- Blade 3 Drive Bay Grille -->
+    <path
+        android:pathData="M48,70h24"
+        android:strokeWidth="1.5"
+        android:strokeColor="#86EFAC"
+        android:strokeLineCap="round" />
+
+    <!-- Top Activity Indicator Badge -->
+    <path
+        android:pathData="M54,23m-2.5,0a2.5,2.5 0 1,0 5,0a2.5,2.5 0 1,0 -5,0"
+        android:fillColor="#22C55E" />
+    <path
+        android:pathData="M50,26a5,5 0 0,1 8,0"
+        android:strokeWidth="1.2"
+        android:strokeColor="#86EFAC"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+</vector>

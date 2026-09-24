@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <!-- Top Header Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:background="?attr/colorSurface">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/badge_online" />
+
+                <TextView
+                    android:id="@+id/tv_header_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="168.144.134.223"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/badge_online"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:text="ONLINE"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/brand_emerald_light" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_header_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Connecting telemetry..."
+                android:textSize="11sp"
+                android:fontFamily="monospace"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.7" />
+        </LinearLayout>
+
+        <!-- Theme Toggle Button -->
+        <ImageButton
+            android:id="@+id/btn_header_theme"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/card_bg"
+            android:src="@drawable/ic_sun"
+            app:tint="?attr/colorOnSurface"
+            android:contentDescription="Toggle Theme" />
+
+        <!-- Logout Button -->
+        <ImageButton
+            android:id="@+id/btn_header_logout"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/card_bg"
+            android:src="@drawable/ic_logout"
+            app:tint="@color/color_red"
+            android:contentDescription="Logout" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutline" />
+
+    <!-- Fragment Container -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutline" />
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:itemIconTint="@color/brand_emerald"
+        app:itemTextColor="?attr/colorOnSurface"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled" />
+
+</LinearLayout>

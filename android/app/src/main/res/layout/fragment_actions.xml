@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="80dp"
+    android:background="?android:attr/windowBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="System Actions &amp; Ops"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="Execute high-priority administrative tasks and memory recovery on your remote server."
+            android:textSize="12sp"
+            android:textColor="@color/slate_400" />
+
+        <!-- Action Card: Drop Caches -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorControlHighlight"
+            app:cardBackgroundColor="?attr/colorSurface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clear Memory &amp; Drop Caches"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Flushes Linux filesystem buffer caches and frees inactive RAM memory immediately."
+                    android:textSize="12sp"
+                    android:textColor="@color/slate_400" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDropCache"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Drop RAM Cache (sync; echo 3)"
+                    android:textSize="13sp"
+                    android:backgroundTint="@color/brand_emerald"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Card: Reload Caddy -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorControlHighlight"
+            app:cardBackgroundColor="?attr/colorSurface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reload Caddy Web Server"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Gracefully reloads Caddy configuration and certificates without dropping existing connections."
+                    android:textSize="12sp"
+                    android:textColor="@color/slate_400" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReloadCaddy"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Reload Caddy Proxy"
+                    android:textSize="13sp"
+                    android:backgroundTint="@color/color_blue"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Card: Restart PM2 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorControlHighlight"
+            app:cardBackgroundColor="?attr/colorSurface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Restart PM2 Applications"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Restarts all background Node.js and PM2 processes managed on the server."
+                    android:textSize="12sp"
+                    android:textColor="@color/slate_400" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRestartPm2"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Restart PM2 Services"
+                    android:textSize="13sp"
+                    android:backgroundTint="@color/color_purple"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Danger Zone: Reboot Server -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/color_red"
+            app:cardBackgroundColor="?attr/colorSurface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Danger Zone: Reboot Host"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="@color/color_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RESTRICTED"
+                        android:fontFamily="monospace"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="@color/color_red"
+                        android:background="@drawable/chip_bg"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Performs a full hardware/kernel reboot of 168.144.134.223. The dashboard and services will be temporarily unavailable."
+                    android:textSize="12sp"
+                    android:textColor="@color/slate_400" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRebootServer"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Reboot Entire Host"
+                    android:textSize="13sp"
+                    android:backgroundTint="@color/color_red"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Result Log Area -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Execution Console / Output"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/tvActionOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:fontFamily="monospace"
+            android:textSize="11sp"
+            android:textColor="@color/brand_emerald_light"
+            android:text="Ready for execution.\nSelect an action above."
+            android:minLines="3"
+            android:textIsSelectable="true" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

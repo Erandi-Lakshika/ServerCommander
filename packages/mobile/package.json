@@ -1,0 +1,23 @@
+{
+  "name": "@dashboard/mobile",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx expo start -c",
+    "android": "npx expo start --android",
+    "ios": "npx expo start --ios",
+    "web": "npx expo start --web"
+  },
+  "dependencies": {
+    "@dashboard/shared": "file:../shared",
+    "expo": "^57.0.24",
+    "expo-status-bar": "^57.0.0",
+    "react": "^19.2.3",
+    "react-native": "0.86.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~19.2.4",
+    "typescript": "^5.4.0"
+  },
+  "private": true
+}

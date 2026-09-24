@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorControlHighlight"
+    app:cardBackgroundColor="?attr/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- PID Chip -->
+            <TextView
+                android:id="@+id/tvProcessPid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chip_bg"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:text="12345"
+                android:fontFamily="monospace"
+                android:textSize="11sp"
+                android:textColor="@color/slate_400" />
+
+            <!-- Process User -->
+            <TextView
+                android:id="@+id/tvProcessUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="root"
+                android:textSize="12sp"
+                android:textColor="@color/slate_400" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- CPU % Badge -->
+            <TextView
+                android:id="@+id/tvProcessCpu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chip_bg"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="12.5% CPU"
+                android:fontFamily="monospace"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/brand_emerald" />
+
+            <!-- RAM % Badge -->
+            <TextView
+                android:id="@+id/tvProcessMem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/chip_bg"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="4.2% RAM"
+                android:fontFamily="monospace"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_purple" />
+
+            <!-- Kill Button -->
+            <ImageButton
+                android:id="@+id/btnKillProcess"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_kill"
+                android:tint="@color/color_red"
+                android:contentDescription="Terminate Process" />
+        </LinearLayout>
+
+        <!-- Command line name -->
+        <TextView
+            android:id="@+id/tvProcessCommand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="node /var/www/dashboard/server.js"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:maxLines="2"
+            android:ellipsize="end" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

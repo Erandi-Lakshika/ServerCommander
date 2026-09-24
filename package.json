@@ -1,0 +1,19 @@
+{
+  "name": "server-dashboard-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=packages/backend",
+    "dev:web": "npm run dev --workspace=packages/web",
+    "start:mobile": "npm run start --workspace=packages/mobile",
+    "build:web": "npm run build --workspace=packages/web",
+    "build:backend": "npm run build --workspace=packages/backend",
+    "build": "npm run build --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
