@@ -34,6 +34,17 @@ app.get('/api/health', (_req, res) => {
 
 // Serve frontend static build if available
 const webDistPath = path.resolve(__dirname, '../../web/dist');
+
+// Direct APK download route with appropriate MIME headers
+app.get('/server-commander.apk', (_req, res) => {
+  const apkPath = path.join(webDistPath, 'server-commander.apk');
+  res.download(apkPath, 'server-commander.apk', (err) => {
+    if (err) {
+      res.status(404).send('APK file not found on host.');
+    }
+  });
+});
+
 app.use(express.static(webDistPath));
 
 // Fallback to index.html for client-side routing
