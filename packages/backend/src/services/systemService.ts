@@ -1,11 +1,15 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import os from 'os';
-import { ServiceItem } from '@dashboard/shared';
+import { ServiceItem, Pm2ProcessItem } from '@dashboard/shared';
 
 const execAsync = promisify(exec);
 
-export async function executeQuickAction(action: string, customCommand?: string): Promise<{ success: boolean; output: string }> {
+export async function executeQuickAction(
+  action: string,
+  customCommand?: string,
+  target?: string
+): Promise<{ success: boolean; output: string }> {
   const isLinux = os.platform() === 'linux';
 
   try {
@@ -20,9 +24,16 @@ export async function executeQuickAction(action: string, customCommand?: string)
       case 'restart_nginx':
         command = isLinux ? 'systemctl restart nginx' : 'echo "Nginx service not on Linux"';
         break;
-      case 'restart_pm2':
-        command = isLinux ? 'pm2 reload all || pm2 restart all' : 'echo "PM2 not supported on this OS"';
+      case 'restart_pm2': {
+        const cleanTarget = target && target.trim() !== 'all' ? target.trim().replace(/[^a-zA-Z0-9_\-\.]/g, '') : 'all';
+        command = isLinux ? `pm2 reload "${cleanTarget}" || pm2 restart "${cleanTarget}"` : 'echo "PM2 not supported on this OS"';
         break;
+      }
+      case 'stop_pm2': {
+        const cleanTarget = target && target.trim() !== 'all' ? target.trim().replace(/[^a-zA-Z0-9_\-\.]/g, '') : 'all';
+        command = isLinux ? `pm2 stop "${cleanTarget}"` : 'echo "PM2 not supported on this OS"';
+        break;
+      }
       case 'reboot':
         command = isLinux ? 'shutdown -r +1 "Reboot triggered by admin via Dashboard"' : 'shutdown /r /t 60';
         break;
@@ -73,3 +84,28 @@ export async function getSystemServices(): Promise<ServiceItem[]> {
     return [];
   }
 }
+
+export async function getPm2Processes(): Promise<Pm2ProcessItem[]> {
+  if (os.platform() !== 'linux') {
+    return [
+      { id: 0, name: 'server-dashboard', status: 'online', cpu: 1.2, memory: 72000000, uptime: Date.now() - 3600000, restarts: 1 },
+    ];
+  }
+
+  try {
+    const { stdout } = await execAsync('pm2 jlist');
+    const raw = JSON.parse(stdout);
+    return raw.map((p: any) => ({
+      id: p.pm_id,
+      name: p.name,
+      status: p.pm2_env?.status || 'unknown',
+      cpu: p.monit?.cpu || 0,
+      memory: p.monit?.memory || 0,
+      uptime: p.pm2_env?.pm_uptime || 0,
+      restarts: p.pm2_env?.restart_time || 0,
+    }));
+  } catch (e) {
+    return [];
+  }
+}
+

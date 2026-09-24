@@ -41,9 +41,23 @@ public class ActionsFragment extends Fragment {
         btnRebootServer = view.findViewById(R.id.btnRebootServer);
         tvActionOutput = view.findViewById(R.id.tvActionOutput);
 
-        btnDropCache.setOnClickListener(v -> runAction("clear_cache", "Dropping memory pagecache..."));
-        btnReloadCaddy.setOnClickListener(v -> runAction("restart_caddy", "Reloading Caddy reverse proxy..."));
-        btnRestartPm2.setOnClickListener(v -> runAction("restart_pm2", "Restarting PM2 backend services..."));
+        btnDropCache.setOnClickListener(v -> runAction("clear_cache", null, "Dropping memory pagecache..."));
+        btnReloadCaddy.setOnClickListener(v -> runAction("restart_caddy", null, "Reloading Caddy reverse proxy..."));
+        
+        btnRestartPm2.setOnClickListener(v -> {
+            String[] options = new String[] {
+                "⚡ All PM2 Services (Global Reload)",
+                "🚀 server-dashboard (#0)"
+            };
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Select PM2 Service to Restart")
+                    .setItems(options, (dialog, which) -> {
+                        String target = (which == 0) ? "all" : "server-dashboard";
+                        runAction("restart_pm2", target, "Reloading PM2 service: " + target + "...");
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        });
 
         btnRebootServer.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
@@ -51,16 +65,16 @@ public class ActionsFragment extends Fragment {
                     .setMessage("This will initiate a full reboot of host 168.144.134.223. All running services will temporarily go offline. Do you wish to continue?")
                     .setIcon(R.drawable.ic_warning)
                     .setPositiveButton("Reboot Now", (dialog, which) -> {
-                        runAction("reboot", "Dispatching reboot command to Linux kernel...");
+                        runAction("reboot", null, "Dispatching reboot command to Linux kernel...");
                     })
                     .setNegativeButton("Cancel", null)
                     .show();
         });
     }
 
-    private void runAction(String actionKey, String initialMessage) {
+    private void runAction(String actionKey, @Nullable String target, String initialMessage) {
         tvActionOutput.setText("[Executing]\n" + initialMessage + "\n");
-        ApiClient.getInstance(requireContext()).executeAction(actionKey, new ApiClient.ApiCallback<String>() {
+        ApiClient.getInstance(requireContext()).executeAction(actionKey, target, new ApiClient.ApiCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 if (!isAdded()) return;

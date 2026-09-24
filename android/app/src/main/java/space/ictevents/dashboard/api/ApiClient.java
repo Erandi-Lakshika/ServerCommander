@@ -222,8 +222,15 @@ public class ApiClient {
     }
 
     public void executeAction(String action, ApiCallback<String> callback) {
+        executeAction(action, null, callback);
+    }
+
+    public void executeAction(String action, String target, ApiCallback<String> callback) {
         JsonObject json = new JsonObject();
         json.addProperty("action", action);
+        if (target != null && !target.isEmpty()) {
+            json.addProperty("target", target);
+        }
 
         RequestBody body = RequestBody.create(json.toString(), MediaType.parse("application/json; charset=utf-8"));
         Request request = newAuthenticatedRequest("/api/system/actions")

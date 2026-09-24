@@ -112,7 +112,18 @@ export interface LoginResponse {
   user: UserSession;
 }
 
+export interface Pm2ProcessItem {
+  id: number;
+  name: string;
+  status: string;
+  cpu: number;
+  memory: number;
+  uptime: number;
+  restarts: number;
+}
+
 export interface QuickActionRequest {
-  action: 'reboot' | 'restart_caddy' | 'restart_nginx' | 'clear_cache' | 'custom';
+  action: 'reboot' | 'restart_caddy' | 'restart_nginx' | 'clear_cache' | 'restart_pm2' | 'stop_pm2' | 'custom';
+  target?: string;
   customCommand?: string;
 }
