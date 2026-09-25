@@ -65,12 +65,12 @@ export const App: React.FC = () => {
         toggleTheme={toggleTheme}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20 md:pb-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-6 lg:px-8 py-3 sm:py-6 pb-28 md:pb-8">
         {/* TAB 1: OVERVIEW & TELEMETRY */}
         {activeTab === 'overview' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* 4 Stat Cards matching Mobile Telemetry */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <MetricCard
                 title="CPU Utilization"
                 value={`${metrics?.cpu.usagePercent || 0}%`}
@@ -145,7 +145,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Mobile Bottom Navigation Bar (5 tabs matching Android app) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-2 py-2 flex justify-around">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-1 py-1.5 flex justify-around">
         {[
           { id: 'overview', label: 'Stats', icon: Compass },
           { id: 'processes', label: 'Tasks', icon: Layers },
@@ -159,12 +159,12 @@ export const App: React.FC = () => {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`flex flex-col items-center py-1 px-2.5 rounded-lg transition-colors ${
+              className={`flex flex-col items-center py-1 px-2 rounded-lg transition-colors ${
                 isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-500 dark:text-slate-400'
               }`}
             >
-              <Icon className="h-5 w-5" />
-              <span className="text-[10px] mt-1">{item.label}</span>
+              <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-[9px] sm:text-[10px] mt-0.5">{item.label}</span>
             </button>
           );
         })}

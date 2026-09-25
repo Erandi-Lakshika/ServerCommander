@@ -123,8 +123,8 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ token, onNavigateAct
   ];
 
   return (
-    <div className="glass-card rounded-2xl p-6 mt-6">
-      <div className="flex items-center justify-between mb-4">
+    <div className="glass-card rounded-2xl p-3.5 sm:p-5 lg:p-6 mt-3 sm:mt-6">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
         <div className="flex items-center space-x-3">
           <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
             <Zap className="h-5 w-5" />

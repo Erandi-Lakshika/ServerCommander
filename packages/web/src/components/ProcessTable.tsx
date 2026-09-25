@@ -94,24 +94,24 @@ export const ProcessTable: React.FC<ProcessTableProps> = ({ token }) => {
   });
 
   return (
-    <div className="glass-card rounded-2xl p-6 mt-6">
+    <div className="glass-card rounded-2xl p-3 sm:p-5 lg:p-6 mt-3 sm:mt-6">
       {/* Header and Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 sm:mb-6">
         <div>
-          <div className="flex items-center space-x-3">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-wide">Live Process Manager</h2>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono font-semibold">
-              {sorted.length} processes {search ? 'found' : 'running'}
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-wide">Live Process Manager</h2>
+            <span className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono font-semibold">
+              {sorted.length} {search ? 'found' : 'running'}
             </span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">
-            Real-time inspection of active Linux processes with sorting and kill capabilities
+          <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+            Active Linux processes ordered by resource consumption
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {/* Sorting Chips matching Mobile App */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-900/80 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center bg-slate-100 dark:bg-slate-900/80 p-0.5 sm:p-1 rounded-xl border border-slate-200 dark:border-slate-800">
             <button
               onClick={() => handleSortToggle('cpu')}
               className={`flex items-center space-x-1 px-3 py-1 rounded-lg text-xs font-mono transition-all ${

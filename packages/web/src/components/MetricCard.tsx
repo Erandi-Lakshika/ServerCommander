@@ -54,22 +54,22 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   const style = getColorClasses();
 
   return (
-    <div className="glass-card glass-card-hover rounded-2xl p-5 relative overflow-hidden">
+    <div className="glass-card glass-card-hover rounded-2xl p-3.5 sm:p-5 relative overflow-hidden">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{title}</p>
-          <div className="mt-1 flex items-baseline space-x-2">
-            <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white tracking-tight">{value}</span>
+        <div className="min-w-0 flex-1 pr-2">
+          <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">{title}</p>
+          <div className="mt-1 flex items-baseline space-x-1.5 sm:space-x-2">
+            <span className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white tracking-tight">{value}</span>
             {percent !== undefined && (
-              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-mono">({percent}%)</span>
+              <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 font-mono">({percent}%)</span>
             )}
           </div>
           {subValue && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono truncate">{subValue}</p>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono truncate">{subValue}</p>
           )}
         </div>
-        <div className={`p-3 rounded-xl border ${style.icon}`}>
-          <Icon className="h-6 w-6" />
+        <div className={`p-2 sm:p-3 rounded-xl border shrink-0 ${style.icon}`}>
+          <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
         </div>
       </div>
 

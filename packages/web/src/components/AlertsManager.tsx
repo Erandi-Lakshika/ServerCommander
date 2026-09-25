@@ -122,10 +122,10 @@ export const AlertsManager: React.FC<AlertsManagerProps> = ({ token }) => {
   };
 
   return (
-    <div className="space-y-6 mt-6">
+    <div className="space-y-4 sm:space-y-6 mt-3 sm:mt-6">
       {/* Alert Configuration Card */}
-      <div className="glass-card rounded-2xl p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="glass-card rounded-2xl p-3.5 sm:p-5 lg:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
           <div className="flex items-center space-x-3">
             <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
               <Mail className="h-5 w-5" />
