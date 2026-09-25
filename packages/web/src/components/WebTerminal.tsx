@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
@@ -14,6 +14,7 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
   const termInstance = useRef<Terminal | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
   const fitAddonRef = useRef<FitAddon | null>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
   const [connected, setConnected] = useState(false);
   const [commandInput, setCommandInput] = useState('');
@@ -29,6 +30,16 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
     { label: 'journalctl -n 20', cmd: 'journalctl -n 20' },
   ];
 
+  const safeFitAndScroll = useCallback(() => {
+    if (!fitAddonRef.current || !termInstance.current || !terminalRef.current) return;
+    try {
+      fitAddonRef.current.fit();
+      termInstance.current.scrollToBottom();
+    } catch (e) {
+      // Ignored if terminal is unmounted or layout not ready
+    }
+  }, []);
+
   const initTerminal = () => {
     if (!terminalRef.current || !token) return;
 
@@ -40,6 +51,10 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
       socketRef.current.close();
       socketRef.current = null;
     }
+    if (resizeObserverRef.current) {
+      resizeObserverRef.current.disconnect();
+      resizeObserverRef.current = null;
+    }
 
     const term = new Terminal({
       theme: {
@@ -50,18 +65,39 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
       },
       fontFamily: 'JetBrains Mono, Menlo, Courier New, monospace',
       fontSize: 13,
-      lineHeight: 1.35,
+      lineHeight: 1.25,
       cursorBlink: true,
       convertEol: true,
+      scrollback: 5000,
+      scrollOnUserInput: true,
+      allowTransparency: true,
     });
 
     const fitAddon = new FitAddon();
     term.loadAddon(fitAddon);
     term.open(terminalRef.current);
-    fitAddon.fit();
 
     fitAddonRef.current = fitAddon;
     termInstance.current = term;
+
+    // Trigger initial fit and ensure fonts are ready
+    requestAnimationFrame(() => {
+      safeFitAndScroll();
+      if (document.fonts) {
+        document.fonts.ready.then(() => {
+          safeFitAndScroll();
+        });
+      }
+    });
+
+    // ResizeObserver watches the actual element dimensions
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(() => {
+        safeFitAndScroll();
+      });
+    });
+    resizeObserver.observe(terminalRef.current);
+    resizeObserverRef.current = resizeObserver;
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const host = window.location.host;
@@ -74,32 +110,40 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
       setConnected(true);
       term.writeln('\x1b[32m✔ Interactive Web Shell connected to host.\x1b[0m');
       term.writeln('\x1b[90mTip: Tap preset command chips below or type directly.\x1b[0m\r\n');
+      term.scrollToBottom();
     };
 
     ws.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data);
         if (payload.type === 'stdout') {
-          term.write(payload.data);
+          term.write(payload.data, () => {
+            term.scrollToBottom();
+          });
         }
       } catch {
-        term.write(event.data);
+        term.write(event.data, () => {
+          term.scrollToBottom();
+        });
       }
     };
 
     ws.onclose = () => {
       setConnected(false);
       term.writeln('\r\n\x1b[31m✖ Shell connection closed.\x1b[0m');
+      term.scrollToBottom();
     };
 
     ws.onerror = () => {
       setConnected(false);
       term.writeln('\r\n\x1b[31m✖ WebSocket error encountered.\x1b[0m');
+      term.scrollToBottom();
     };
 
     term.onData((data) => {
       if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({ type: 'stdin', data }));
+        term.scrollToBottom();
       }
     });
   };
@@ -108,16 +152,17 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
     initTerminal();
 
     const handleResize = () => {
-      if (fitAddonRef.current) fitAddonRef.current.fit();
+      safeFitAndScroll();
     };
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
       if (termInstance.current) termInstance.current.dispose();
       if (socketRef.current) socketRef.current.close();
     };
-  }, [token]);
+  }, [token, safeFitAndScroll]);
 
   const sendCommand = (cmd: string) => {
     if (!cmd.trim()) return;
@@ -125,6 +170,7 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
       socketRef.current.send(JSON.stringify({ type: 'stdin', data: `${cmd.trim()}\r` }));
       if (termInstance.current) {
         termInstance.current.focus();
+        termInstance.current.scrollToBottom();
       }
     }
   };
@@ -141,6 +187,7 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
     if (termInstance.current) {
       termInstance.current.clear();
       termInstance.current.writeln('\x1b[90mTerminal output cleared.\x1b[0m\r\n');
+      termInstance.current.scrollToBottom();
     }
   };
 
@@ -214,11 +261,14 @@ export const WebTerminal: React.FC<WebTerminalProps> = ({ token, theme = 'dark' 
         </div>
       </div>
 
-      {/* Terminal Viewport */}
-      <div
-        ref={terminalRef}
-        className="w-full h-[420px] bg-[#090d16] rounded-xl p-3 border border-slate-700 dark:border-slate-800 overflow-hidden shadow-inner"
-      />
+      {/* Terminal Outer Frame with Dedicated Bottom Padding Buffer */}
+      <div className="w-full bg-[#090d16] rounded-xl border border-slate-700 dark:border-slate-800 shadow-inner px-4 pt-4 pb-6 overflow-hidden">
+        {/* Terminal Viewport (Zero padding so xterm calculations are pixel-exact) */}
+        <div
+          ref={terminalRef}
+          className="w-full h-[420px]"
+        />
+      </div>
 
       {/* Mobile/Touch Quick Command Dispatcher */}
       <form onSubmit={handleInputSubmit} className="mt-3 flex items-center space-x-2">

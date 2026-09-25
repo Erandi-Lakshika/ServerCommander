@@ -69,3 +69,31 @@ html.dark .glass-card-hover:hover {
 html:not(.dark) .glass-card-hover:hover {
   box-shadow: 0 6px 24px -4px rgba(34, 197, 94, 0.15);
 }
+
+/* xterm terminal styling overrides */
+.xterm {
+  padding: 0 !important;
+  height: 100% !important;
+}
+
+.xterm .xterm-viewport {
+  overflow-y: auto !important;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar {
+  width: 6px;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
